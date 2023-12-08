@@ -1,1 +1,1 @@
-# android_camera_preview
+- Android Application that renders camera feed to the screen
