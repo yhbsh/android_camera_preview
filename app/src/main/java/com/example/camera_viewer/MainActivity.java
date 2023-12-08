@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
         mPreview = new CameraPreview(this, cameraId);
 
-        FrameLayout preview = findViewById(R.id.camera_preview);
-        preview.addView(mPreview);
+        FrameLayout cameraPreview = findViewById(R.id.camera_preview);
+        cameraPreview.addView(mPreview);
     }
 }
