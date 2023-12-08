@@ -17,11 +17,11 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
     private SurfaceHolder surfaceHolder;
 
-    private int cameraId = 0;
+    private int cameraId;
 
-    public CameraPreview(Context context, int camerId) {
+    public CameraPreview(Context context, int id) {
         super(context);
-        this.cameraId = cameraId;
+        this.cameraId = id;
         surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
     }
@@ -58,7 +58,6 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
     @Override
     public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
-
     }
 
     @Override
