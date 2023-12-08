@@ -4,6 +4,8 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,14 +20,40 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private Camera camera;
     private SurfaceHolder surfaceHolder;
 
+    private int cameraId = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
         final SurfaceView surfaceView = findViewById(R.id.surfaceView);
         surfaceHolder = surfaceView.getHolder();
         surfaceHolder.addCallback(this);
+
+        final Button button = findViewById(R.id.btn_switch_camera);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (cameraId == 0) {
+                    cameraId = 1;
+                } else {
+                    cameraId = 0;
+                }
+
+                camera = Camera.open(cameraId);
+
+                camera.setDisplayOrientation(90);
+
+                try {
+                    camera.setPreviewDisplay(surfaceHolder);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                camera.startPreview();
+            }
+        });
     }
 
 
@@ -47,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
-        camera = Camera.open();
+        camera = Camera.open(cameraId);
 
         camera.setDisplayOrientation(90);
 
